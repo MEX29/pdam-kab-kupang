@@ -1,0 +1,41 @@
+Keterangan:
+
+Simple Multi Attribute Rating atau disingkat menjadi SMART merupakan suatu model pengambil keputusan yang komprehensif dengan memperhitungkan hal-hal yang bersifat kualitatif dan kuantitatif. Dalam model pengambilan keputusan dengan SMART pada dasarnya berusaha menutupi setiap kekurangan dari model-model tanpa komputerisasi sebelumnya. 
+Perhitungan dalam aplikasi SPK metode SMART (simple multi attribute rating) ini sangat sederhana yang terdiri dari 3 langkah, yaitu :
+1.normalisasi bobot kriteria.
+2.perkalian matriks dengan bobot kriteria.
+3.perhitungan total.
+ 
+Spesifikasi Aplikasi SPK metode SMART
+1.PHP Version : All PHP version which support MySQLi
+2.DBMS : MySQL 
+3.Database Library
+4.Framework CSS Bootstrap 3 (Native)
+5.HTML 5 & CSS 3
+ 
+Adapun fitur/Komponen yang terdapat di dalam APLIKASI SPK METODE SMART adalah sebagai berikut :
+Komponen aplikasi spk metode SMART meliputi :
+1.Login, untuk membatasi user yang bisa mengolah data pada aplikasi.
+2.Kriteria, mengatur kriteria apa saja yang digunakan sebagai dasar penilaian.
+3.Alternatif, mengisi data alternatif yang akan dinilai.
+4.Nilai Bobot Alternatif, mengisi bobot setiap kriteria pada masing-masing alternatif.
+5.Perhitungan, memproses perhitungan SMART.
+APLIKASI SPK METODE SMART ini siap pakai atau pun di kembangkan sesuai dengan keinginan..
+Demikian lah Keterangan/penjelasan dari Aplikasi/fitur di atas adalah sebagian dari aplikasi ini , 
+Dan ada banyak lagi keunggulan dari  aplikasi ini,untuk melihat lebih lanjut tentang APLIKASI SPK METODE SMART.
+
+
+Cara Instalasi :
+- Download file Pendukung yaitu web server xampp bisa download di sini di sarankan php 5.6 atau versi 7.3
+- Text editor untuk membongkar coding di rekomendasikan sublime text atau notepad ++ sini
+- install xampp seperti biasa dan subimetext nya
+- copy folder Download aplikasi spk metode smart berbasis web yang sudah di download ke direktory c/xampp/htocs
+- kemudian buka bowser google chorme kemudian ketikan localhost/phpmyadmin/
+- selanjutnya buat database dengan nama yang ada di folder htdocs tadi yang telah di pindahkan ada di folder db atau database dengan format .sql, kemudian import
+- setelah itu sesuaikan setingan koneksi database dengan membuka aplikasi texteditor tadi, file koneksi di application/config/database.php atau di file koneksi.php, lalu save
+- kemudian buka browser ketikan localhost/project_nama ( nama project tadi )
+- selesai
+
+Akun Login
+Username : admin Pasword : admin
+atau anda bisa cek di tabel admin atau user
