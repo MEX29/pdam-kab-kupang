@@ -1,13 +1,25 @@
+<footer class="footer">
+  <div class="d-sm-flex justify-content-center justify-content-sm-between">
+    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block"></span>
+    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © <?= date('Y') ?> <a style="cursor: pointer;" onclick="window.open('https://netmedia-framecode.com', '_blank')">Netmedia Framecode</a> . All rights reserved.</span>
+  </div>
+</footer>
+</div>
+</div>
+</div>
 <script src="<?= $baseURL; ?>assets/js/vendor.bundle.base.js"></script>
+<script src="<?= $baseURL; ?>assets/js/Chart.min.js"></script>
 <script src="<?= $baseURL; ?>assets/js/bootstrap-datepicker.min.js"></script>
+<script src="<?= $baseURL; ?>assets/js/progressbar.min.js"></script>
 <script src="<?= $baseURL; ?>assets/js/off-canvas.js"></script>
 <script src="<?= $baseURL; ?>assets/js/hoverable-collapse.js"></script>
 <script src="<?= $baseURL; ?>assets/js/template.js"></script>
 <script src="<?= $baseURL; ?>assets/js/settings.js"></script>
 <script src="<?= $baseURL; ?>assets/js/todolist.js"></script>
+<script src="<?= $baseURL; ?>assets/js/jquery.cookie.js"></script>
+<script src="<?= $baseURL; ?>assets/js/dashboard.js"></script>
+<script src="<?= $baseURL; ?>assets/js/Chart.roundedBarCharts.js"></script>
 <script src="<?= $baseURL; ?>assets/js/jquery-3.5.1.min.js"></script>
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script>
   const messageSuccess = $('.message-success').data('message-success');
   const messageInfo = $('.message-info').data('message-info');
@@ -43,4 +55,13 @@
       text: messageDanger,
     })
   }
+</script>
+<script>
+  $(document).ready(function() {
+    $('#search-all').on('keyup', function() {
+      $.get('search.php?key=' + $('#search-all').val(), function(data) {
+        $('#search-page').html(data);
+      });
+    });
+  });
 </script>

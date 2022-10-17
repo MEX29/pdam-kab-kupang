@@ -47,7 +47,14 @@
               <div class="full">
                 <div class="center-desk">
                   <div class="logo">
-                    <a href="./"><img src="assets/images/logo.png" alt="#" /></a>
+                    <style>
+                      @media screen and (max-width: 400px) {
+                        .img-logo {
+                          width: 200px;
+                        }
+                      }
+                    </style>
+                    <a href="./"><img src="assets/images/logo.png" class="img-logo" alt="#" /></a>
                   </div>
                 </div>
               </div>
@@ -55,7 +62,7 @@
             <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
               <nav class="navigation navbar navbar-expand-md navbar-dark ">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
+                  <ion-icon name="menu-outline" style="font-size: 35px; margin-top: -10px;"></ion-icon>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarsExample04">
                   <div class="sign_btn">

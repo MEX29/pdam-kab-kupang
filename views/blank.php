@@ -30,25 +30,11 @@ $_SESSION['page-url'] = "./";
         <div class="content-wrapper">
           <div class="row">
             <div class="col-sm-12">
-              <div class="home-tab">
-                <?php require_once("../resources/dash-navbar.php") ?>
-                <div class="data-main"></div>
-              </div>
+              <!--  -->
             </div>
           </div>
         </div>
         <?php require_once("../resources/dash-footer.php") ?>
-        <script>
-          $(document).ready(function() {
-            $('.action').click(function() {
-              var menu = $(this).attr('id');
-              if (menu == "overview") {
-                $('.data-main').load('overview.php');
-              }
-            });
-            $('.data-main').load('overview.php');
-          });
-        </script>
 </body>
 
 </html>

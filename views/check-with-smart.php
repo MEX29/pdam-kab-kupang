@@ -1,7 +1,16 @@
 <?php require_once("../controller/script.php");
 require_once("redirect.php");
-$_SESSION['page-name'] = "Dashboard";
-$_SESSION['page-url'] = "./";
+if (!isset($_SESSION['check-smart-id'])) {
+  header("Location: " . $_SESSION['page-url']);
+  exit();
+} else if (!isset($_SESSION['check-smart-id'])) {
+  if ($_SESSION['data-user']['role'] == 3) {
+    header("Location: " . $_SESSION['page-url']);
+    exit();
+  }
+}
+$_SESSION['page-name'] = "SMART";
+$_SESSION['page-url'] = "check-with-smart";
 ?>
 
 <!DOCTYPE html>
@@ -30,25 +39,11 @@ $_SESSION['page-url'] = "./";
         <div class="content-wrapper">
           <div class="row">
             <div class="col-sm-12">
-              <div class="home-tab">
-                <?php require_once("../resources/dash-navbar.php") ?>
-                <div class="data-main"></div>
-              </div>
+              <!--  -->
             </div>
           </div>
         </div>
         <?php require_once("../resources/dash-footer.php") ?>
-        <script>
-          $(document).ready(function() {
-            $('.action').click(function() {
-              var menu = $(this).attr('id');
-              if (menu == "overview") {
-                $('.data-main').load('overview.php');
-              }
-            });
-            $('.data-main').load('overview.php');
-          });
-        </script>
 </body>
 
 </html>
