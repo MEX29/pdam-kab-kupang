@@ -40,7 +40,47 @@ $_SESSION['page-url'] = "edit-nilai";
                   while ($row = mysqli_fetch_assoc($nilai_kriteria)) { ?>
                     <div class="mb-3">
                       <label for="nilai" class="form-label"><?= $row['username'] ?></label>
-                      <input type="number" name="nilai[]" value="<?= $row['nilai'] ?>" class="form-control" id="nilai" placeholder="Nilai" required>
+                      <!-- <input type="number" name="nilai[]" value="<?= $row['nilai'] ?>" class="form-control" id="nilai" placeholder="Nilai" required> -->
+                      <select name="nilai[]" class="form-select" aria-label="Pilih Penilaian">
+                        <?php if ($row['nilai'] >= 5 && $row['nilai'] < 20) { ?>
+                          <option value="5">Sangat Kurang baik</option>
+                          <option value="20">Kurang baik</option>
+                          <option value="50">Cukup Baik</option>
+                          <option value="80">Baik</option>
+                          <option value="100">Sangat Baik</option>
+                        <?php } else if ($row['nilai'] >= 20 && $row['nilai'] < 50) { ?>
+                          <option value="20">Kurang baik</option>
+                          <option value="5">Sangat Kurang baik</option>
+                          <option value="50">Cukup Baik</option>
+                          <option value="80">Baik</option>
+                          <option value="100">Sangat Baik</option>
+                        <?php } else if ($row['nilai'] >= 50 && $row['nilai'] < 80) { ?>
+                          <option value="50">Cukup Baik</option>
+                          <option value="5">Sangat Kurang baik</option>
+                          <option value="20">Kurang baik</option>
+                          <option value="80">Baik</option>
+                          <option value="100">Sangat Baik</option>
+                        <?php } else if ($row['nilai'] >= 80 && $row['nilai'] < 100) { ?>
+                          <option value="80">Baik</option>
+                          <option value="5">Sangat Kurang baik</option>
+                          <option value="20">Kurang baik</option>
+                          <option value="50">Cukup Baik</option>
+                          <option value="100">Sangat Baik</option>
+                        <?php } else if ($row['nilai'] == 100) { ?>
+                          <option value="100">Sangat Baik</option>
+                          <option value="5">Sangat Kurang baik</option>
+                          <option value="20">Kurang baik</option>
+                          <option value="50">Cukup Baik</option>
+                          <option value="80">Baik</option>
+                        <?php } else if ($row['nilai'] == 0) { ?>
+                          <option selected value="">Pilih Penilaian</option>
+                          <option value="5">Sangat Kurang baik</option>
+                          <option value="20">Kurang baik</option>
+                          <option value="50">Cukup Baik</option>
+                          <option value="80">Baik</option>
+                          <option value="100">Sangat Baik</option>
+                        <?php } ?>
+                      </select>
                       <input type="hidden" name="id-nilai[]" value="<?= $row['id_nilai_alternatif'] ?>">
                     </div>
                 <?php }

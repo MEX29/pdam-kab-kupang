@@ -31,7 +31,7 @@ $_SESSION['page-url'] = "daftar";
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-center py-5 px-4 px-sm-5">
               <h4>Daftar Akun PDAM Kab Kupang</h4>
-              <form class="pt-3" action="" method="POST" autocomplete="off">
+              <form class="pt-3" action="" method="POST" autocomplete="on">
                 <div class="form-group">
                   <label for="username">Nama</label>
                   <input type="text" name="username" id="username" value="<?php if (isset($_POST['username'])) {

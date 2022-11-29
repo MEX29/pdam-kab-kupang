@@ -28,13 +28,12 @@ if (isset($_SESSION['time-message'])) {
   }
 }
 
-$baseURL = "http://127.0.0.1:1010/apps/pdam-kab-kupang/";
-// $baseURL = "https://ccbc-180-249-166-141.ngrok.io/apps/pdam-kab-kupang/";
+$baseURL = "http://$_SERVER[HTTP_HOST]/apps/pdam-kab-kupang/";
 
 if (!isset($_SESSION['data-user'])) {
   if (isset($_POST['daftar'])) {
     if (daftar($_POST) > 0) {
-      $_SESSION['message-success'] = "Akun kamu berhasil didaftarkan, silakan masuk untuk mulai berbelanja.";
+      $_SESSION['message-success'] = "Akun kamu berhasil didaftarkan.";
       $_SESSION['time-message'] = time();
       header("Location: ./");
       exit();
@@ -186,7 +185,7 @@ if (isset($_SESSION['data-user'])) {
         if (ubah_nilai($_POST) > 0) {
           $_SESSION['message-success'] = "Berhasil mengubah nilai " . $_SESSION['kriteria']['nama'] . ".";
           $_SESSION['time-message'] = time();
-          header("Location: " . $_SESSION['page-url']);
+          header("Location: nilai-alternatif");
           exit();
         }
       }

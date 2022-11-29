@@ -65,7 +65,23 @@ $_SESSION['page-url'] = "nilai-alternatif";
                                 $xw = mysqli_query($conn, "SELECT * FROM users JOIN alternatif ON users.id_user=alternatif.id_user JOIN nilai_alternatif ON alternatif.id_alternatif=nilai_alternatif.id_alternatif WHERE users.id_user='$id_useal' AND nilai_alternatif.id_kriteria='$id_kriteria' ORDER BY users.username ASC");
                                 if (mysqli_num_rows($xw) > 0) {
                                   $xy = mysqli_fetch_assoc($xw); ?>
-                                  <td><?= $xy['nilai'] ?></td>
+                                  <td>
+                                    <?php $nilai = $xy['nilai'];
+                                    if ($nilai >= 5 && $nilai < 20) {
+                                      echo "Sangat Kurang baik";
+                                    } else if ($nilai >= 20 && $nilai < 50) {
+                                      echo "Kurang baik";
+                                    } else if ($nilai >= 50 && $nilai < 80) {
+                                      echo "Cukup baik";
+                                    } else if ($nilai >= 80 && $nilai < 100) {
+                                      echo "baik";
+                                    } else if ($nilai == 100) {
+                                      echo "Sangat baik";
+                                    } else if ($nilai == 0) {
+                                      echo "-";
+                                    }
+                                    ?>
+                                  </td>
                               <?php }
                               } ?>
                               <td>

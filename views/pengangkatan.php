@@ -112,7 +112,23 @@ $_SESSION['page-url'] = "pengangkatan";
                           <tr>
                             <th><?= $ALTERNATIF[$key] ?></th>
                             <?php foreach ($val as $k => $v) : ?>
-                              <td><?= $v ?></td>
+                              <td>
+                                <?php $nilai_a = $v;
+                                if ($nilai_a >= 5 && $nilai_a < 20) {
+                                  echo "Sangat Kurang baik";
+                                } else if ($nilai_a >= 20 && $nilai_a < 50) {
+                                  echo "Kurang baik";
+                                } else if ($nilai_a >= 50 && $nilai_a < 80) {
+                                  echo "Cukup baik";
+                                } else if ($nilai_a >= 80 && $nilai_a < 100) {
+                                  echo "baik";
+                                } else if ($nilai_a == 100) {
+                                  echo "Sangat baik";
+                                } else if ($nilai_a == 0) {
+                                  echo "-";
+                                }
+                                ?>
+                              </td>
                             <?php endforeach ?>
                           </tr>
                         <?php endforeach ?>

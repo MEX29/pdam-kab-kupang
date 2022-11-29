@@ -224,6 +224,9 @@ if (isset($_SESSION['data-user'])) {
         if ($total[$x] >= 75) {
           $sql = "UPDATE pegawai JOIN users ON pegawai.id_user=users.id_user SET pegawai.id_status='2', users.updated_at='$updated_at' WHERE users.username='$username[$x]'";
           mysqli_query($conn, $sql);
+        } else if ($total[$x] < 75) {
+          $sql = "UPDATE pegawai JOIN users ON pegawai.id_user=users.id_user SET pegawai.id_status='1', users.updated_at='$updated_at' WHERE users.username='$username[$x]'";
+          mysqli_query($conn, $sql);
         }
       }
       return mysqli_affected_rows($conn);

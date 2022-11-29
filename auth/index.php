@@ -31,7 +31,7 @@ $_SESSION['page-url'] = "./";
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-center py-5 px-4 px-sm-5">
               <h4>Halo! mari kita mulai di PDAM<br> Kabupaten Kupang</h4>
-              <form class="pt-3" action="" method="POST" autocomplete="off">
+              <form class="pt-3" action="" method="POST" autocomplete="on">
                 <div class="form-group">
                   <label for="email">e-Mail</label>
                   <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Email" required>
