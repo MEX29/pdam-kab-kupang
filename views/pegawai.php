@@ -48,7 +48,9 @@ $_SESSION['page-url'] = "pegawai";
                             <th>Telp</th>
                             <th>Tgl Dibuat</th>
                             <th>Tgl Diubah</th>
-                            <th colspan="2">Aksi</th>
+                            <?php if ($_SESSION['data-user']['role'] == 1) { ?>
+                              <th colspan="2">Aksi</th>
+                            <?php } ?>
                           </tr>
                         </thead>
                         <tbody id="search-page">
@@ -92,32 +94,34 @@ $_SESSION['page-url'] = "pegawai";
                                     </button>
                                   </form> -->
                                 </td>
-                                <td>
-                                  <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapus<?= $row['id_user'] ?>">
-                                    <i class="mdi mdi-delete"></i>
-                                  </button>
-                                  <div class="modal fade" id="hapus<?= $row['id_user'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                      <div class="modal-content">
-                                        <div class="modal-header border-bottom-0">
-                                          <h5 class="modal-title" id="exampleModalLabel"><?= $row['username'] ?></h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                          Anda yakin ingin menghapus <?= $row['username'] ?> ini?
-                                        </div>
-                                        <div class="modal-footer justify-content-center border-top-0">
-                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                          <form action="" method="POST">
-                                            <input type="hidden" name="id-user" value="<?= $row['id_user'] ?>">
-                                            <input type="hidden" name="username" value="<?= $row['username'] ?>">
-                                            <button type="submit" name="hapus-user" class="btn btn-danger">Hapus</button>
-                                          </form>
+                                <?php if ($_SESSION['data-user']['role'] == 1) { ?>
+                                  <td>
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapus<?= $row['id_user'] ?>">
+                                      <i class="mdi mdi-delete"></i>
+                                    </button>
+                                    <div class="modal fade" id="hapus<?= $row['id_user'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header border-bottom-0">
+                                            <h5 class="modal-title" id="exampleModalLabel"><?= $row['username'] ?></h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            Anda yakin ingin menghapus <?= $row['username'] ?> ini?
+                                          </div>
+                                          <div class="modal-footer justify-content-center border-top-0">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                            <form action="" method="POST">
+                                              <input type="hidden" name="id-user" value="<?= $row['id_user'] ?>">
+                                              <input type="hidden" name="username" value="<?= $row['username'] ?>">
+                                              <button type="submit" name="hapus-user" class="btn btn-danger">Hapus</button>
+                                            </form>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </td>
+                                  </td>
+                                <?php } ?>
                               </tr>
                           <?php }
                           } ?>
@@ -153,12 +157,12 @@ $_SESSION['page-url'] = "pegawai";
                                                                                   } else if ($page_role2 <= 4) {
                                                                                     echo '5';
                                                                                   } ?>/" class="btn btn-<?php if ($page_role2 <= 4) {
-                                                                                                        echo 'outline-';
-                                                                                                      } ?>primary btn-sm rounded-0"><?php if ($page_role2 > 4) {
-                                                                                                                                                                                                                echo $page_role2;
-                                                                                                                                                                                                              } else if ($page_role2 <= 4) {
-                                                                                                                                                                                                                echo '5';
-                                                                                                                                                                                                              } ?></a>
+                                                                                                          echo 'outline-';
+                                                                                                        } ?>primary btn-sm rounded-0"><?php if ($page_role2 > 4) {
+                                                                                                                                        echo $page_role2;
+                                                                                                                                      } else if ($page_role2 <= 4) {
+                                                                                                                                        echo '5';
+                                                                                                                                      } ?></a>
                                     </li>
                                   <?php endif;
                                   if ($page_role2 < $total_page_role2 && $total_page_role2 >= 4) : ?>
