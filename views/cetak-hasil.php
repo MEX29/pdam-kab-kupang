@@ -17,7 +17,7 @@ $data = get_hasil_analisa('', $selected);
 $terbobot = get_terbobot($data, $normal_kriteria);
 $total = get_total($terbobot);
 $rank = get_rank($total);
-header("Content-type: application/vnd-ms-excel");
+header("Content-type: application/vnd.ms-excel");
 header("Content-Disposition: attachment; filename=Perhitungan Pegawai Tetap PDAM Kab Kupang.xls");
 ?>
 

@@ -43,7 +43,6 @@ $_SESSION['page-url'] = "pegawai";
                           <tr>
                             <th>Nama</th>
                             <th>Email</th>
-                            <th>Jabatan</th>
                             <th>Pangkat</th>
                             <th>Telp</th>
                             <th>Tgl Dibuat</th>
@@ -71,7 +70,6 @@ $_SESSION['page-url'] = "pegawai";
                                   </div>
                                 </td>
                                 <td><?= $row['email'] ?></td>
-                                <td><?= $row['jabatan'] ?></td>
                                 <td><?= $row['pangkat'] ?></td>
                                 <td><?= $row['telp'] ?></td>
                                 <td>

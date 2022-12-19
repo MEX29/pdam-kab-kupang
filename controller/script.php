@@ -220,6 +220,11 @@ if (isset($_SESSION['data-user'])) {
         $_SESSION['time-message'] = time();
         header("Location: pegawai");
         exit();
+      }else{
+        $_SESSION['message-success'] = "Status pengakatan dari pegawai tidak tetap ke pegawai tetap berhasil.";
+        $_SESSION['time-message'] = time();
+        header("Location: pegawai");
+        exit();
       }
     }
     if (isset($_POST['tambah-sub-kriteria'])) {

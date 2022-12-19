@@ -98,11 +98,6 @@ $_SESSION['page-url'] = "profile";
                                 <td class="w-75"><?= $row['email'] ?></td>
                               </tr>
                               <tr>
-                                <th scope="row">Jabatan</th>
-                                <td>:</td>
-                                <td class="w-75"><?= $row['jabatan'] ?></td>
-                              </tr>
-                              <tr>
                                 <th scope="row">Pangkat</th>
                                 <td>:</td>
                                 <td class="w-75"><?= $row['pangkat'] ?></td>

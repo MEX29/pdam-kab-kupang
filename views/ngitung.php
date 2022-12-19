@@ -1,4 +1,9 @@
-<?php require_once("../controller/db_connect.php");
+<?php 
+if(isset($_SESSION['data-user'])){
+  require_once("../controller/db_connect.php");
+}else{
+  require_once("controller/db_connect.php");
+}
 // Normaslisasi Kriteria
 $xc_kriteria = mysqli_query($conn, "SELECT * FROM kriteria");
 $kriteria_cv = mysqli_query($conn, "SELECT id_kriteria, nama_kriteria, bobot FROM kriteria ORDER BY id_kriteria");

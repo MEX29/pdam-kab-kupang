@@ -1,3 +1,5 @@
+<?php require_once("controller/script.php"); ?>
+
 <!DOCTYPE html>
 <html lang="en" style="font-family: 'Montserrat', sans-serif;">
 
@@ -104,6 +106,75 @@
     </div>
   </header>
   <!-- end banner -->
+  <div class="section mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card p-3 border-0 shadow">
+            <div class="card-title text-center">
+              <h1 style="font-family: 'Montserrat', sans-serif;font-weight: 700;">Pengumuman</h1>
+            </div>
+            <div class="card-body">
+              <?php
+              $bobot_kriteria = get_bobot_kriteria();
+              $normal_kriteria = get_normal_kriteria($bobot_kriteria);
+              $data = get_hasil_analisa('', $selected);
+              $terbobot = get_terbobot($data, $normal_kriteria);
+              $total = get_total($terbobot);
+              $rank = get_rank($total);
+              $selected = $_SESSION['selected'];
+              $xc_kriteria = mysqli_query($conn, "SELECT * FROM kriteria");
+              $count_kriteria = mysqli_num_rows($xc_kriteria);
+              require_once("views/ngitung.php");
+              $bobot_kriteria = get_bobot_kriteria();
+              $normal_kriteria = get_normal_kriteria($bobot_kriteria);
+              $data = get_hasil_analisa('', $selected);
+              $terbobot = get_terbobot($data, $normal_kriteria);
+              $total = get_total($terbobot);
+              $rank = get_rank($total);
+              ?>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover table-borderless text-center">
+                  <thead>
+                    <tr>
+                      <th scope="col" rowspan="2">#Rank</th>
+                      <th scope="col" rowspan="2">Nama Pegawai</th>
+                      <th scope="col" rowspan="2">Kriteria</th>
+                    <tr>
+                      <?php foreach ($xc_kriteria as $row_xc) : ?>
+                        <th scope="col"><?= $row_xc['nama_kriteria'] ?></th>
+                      <?php endforeach; ?>
+                      <th scope="col" rowspan="1">Total</th>
+                      <th scope="col" rowspan="1">Status</th>
+                    </tr>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($rank as $key => $val) : ?>
+                      <tr>
+                        <td><?= $rank[$key] ?></td>
+                        <th><?= $ALTERNATIF[$key] ?></th>
+                        <?php foreach ($terbobot[$key] as $k => $v) : ?>
+                          <td><?= round($v, 2) ?></td>
+                        <?php endforeach ?>
+                        <td><?= round($total[$key], 2) ?></td>
+                        <td><?php $nilai = round($total[$key], 2);
+                            if ($nilai >= 75) {
+                              echo "Pegawai Tetap";
+                            } else {
+                              echo "Pegawai Tidak Tetap";
+                            } ?></td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--  footer -->
   <footer>
     <div class="copyright">
