@@ -30,6 +30,12 @@
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" style="cursor: pointer;" onclick="window.location.href='sub-kriteria'">
+          <i class="mdi mdi-playlist-plus menu-icon"></i>
+          <span class="menu-title">Sub Kriteria</span>
+        </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" style="cursor: pointer;" onclick="window.location.href='alternatif'">
           <i class="mdi mdi-playlist-plus menu-icon"></i>
           <span class="menu-title">Alternatif</span>

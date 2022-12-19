@@ -39,49 +39,51 @@ $_SESSION['page-url'] = "edit-nilai";
                 <?php if (mysqli_num_rows($nilai_kriteria) > 0) {
                   while ($row = mysqli_fetch_assoc($nilai_kriteria)) { ?>
                     <div class="mb-3">
-                      <label for="nilai" class="form-label"><?= $row['username'] ?></label>
-                      <!-- <input type="number" name="nilai[]" value="<?= $row['nilai'] ?>" class="form-control" id="nilai" placeholder="Nilai" required> -->
-                      <select name="nilai[]" class="form-select" aria-label="Pilih Penilaian">
-                        <?php if ($row['nilai'] >= 5 && $row['nilai'] < 20) { ?>
-                          <option value="5">Sangat Kurang baik</option>
-                          <option value="20">Kurang baik</option>
-                          <option value="50">Cukup Baik</option>
-                          <option value="80">Baik</option>
-                          <option value="100">Sangat Baik</option>
-                        <?php } else if ($row['nilai'] >= 20 && $row['nilai'] < 50) { ?>
-                          <option value="20">Kurang baik</option>
-                          <option value="5">Sangat Kurang baik</option>
-                          <option value="50">Cukup Baik</option>
-                          <option value="80">Baik</option>
-                          <option value="100">Sangat Baik</option>
-                        <?php } else if ($row['nilai'] >= 50 && $row['nilai'] < 80) { ?>
-                          <option value="50">Cukup Baik</option>
-                          <option value="5">Sangat Kurang baik</option>
-                          <option value="20">Kurang baik</option>
-                          <option value="80">Baik</option>
-                          <option value="100">Sangat Baik</option>
-                        <?php } else if ($row['nilai'] >= 80 && $row['nilai'] < 100) { ?>
-                          <option value="80">Baik</option>
-                          <option value="5">Sangat Kurang baik</option>
-                          <option value="20">Kurang baik</option>
-                          <option value="50">Cukup Baik</option>
-                          <option value="100">Sangat Baik</option>
-                        <?php } else if ($row['nilai'] == 100) { ?>
-                          <option value="100">Sangat Baik</option>
-                          <option value="5">Sangat Kurang baik</option>
-                          <option value="20">Kurang baik</option>
-                          <option value="50">Cukup Baik</option>
-                          <option value="80">Baik</option>
-                        <?php } else if ($row['nilai'] == 0) { ?>
-                          <option selected value="">Pilih Penilaian</option>
-                          <option value="5">Sangat Kurang baik</option>
-                          <option value="20">Kurang baik</option>
-                          <option value="50">Cukup Baik</option>
-                          <option value="80">Baik</option>
-                          <option value="100">Sangat Baik</option>
-                        <?php } ?>
-                      </select>
-                      <input type="hidden" name="id-nilai[]" value="<?= $row['id_nilai_alternatif'] ?>">
+                      <label for="nilai" class="form-label"><strong><?= $row['username'] ?></strong></label>
+                      <?php foreach ($select_sub_kriteria as $row_ssk) : ?>
+                        <div class="row mb-3">
+                          <div class="col-lg-2 m-auto"><?= $row_ssk['sub_kriteria'] ?></div>
+                          <div class="col-lg-10">
+                            <input type="number" name="angka[]" value="<?= $row['nilai'] ?>" class="form-control" id="nilai" placeholder="Nilai" required>
+                          </div>
+                        </div>
+                        <?php endforeach; ?>
+                      <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-9">
+                          <input type="number" name="nilai" id="hasil" class="form-control" readonly required>
+                        </div>
+                        <div class="col-lg-1">
+                          <button type="button" id="hitung" class="btn btn-primary btn-sm rounded-0" style="margin-left: -10px;">Hitung</button>
+                        </div>
+                        <script>
+                          // ambil semua elemen input dengan nama "angka"
+                          const angkaInputs = document.querySelectorAll("[name='angka[]']");
+
+                          // ambil elemen input dengan nama "nilai"
+                          const nilaiInput = document.querySelector("[name='nilai']");
+
+                          // ambil tombol dengan id "hitung"
+                          const hitungButton = document.getElementById("hitung");
+
+                          // tambahkan event "click" pada tombol "hitung"
+                          hitungButton.addEventListener("click", function() {
+                            // inisialisasi variabel total dengan nilai 0
+                            let total = 0;
+
+                            // lakukan looping untuk setiap elemen input dengan nama "angka"
+                            angkaInputs.forEach(function(angkaInput) {
+                              // tambahkan nilai dari elemen input tersebut ke variabel total
+                              total += parseInt(angkaInput.value);
+                            });
+
+                            // tampilkan total nilai pada elemen input dengan nama "nilai"
+                            nilaiInput.value = total;
+                          });
+                        </script>
+
+                      </div>
+                      <input type="hidden" name="id-nilai" value="<?= $row['id_nilai_alternatif'] ?>">
                     </div>
                 <?php }
                 } ?>
@@ -91,6 +93,7 @@ $_SESSION['page-url'] = "edit-nilai";
             </div>
           </div>
         </div>
+
         <?php require_once("../resources/dash-footer.php") ?>
 </body>
 

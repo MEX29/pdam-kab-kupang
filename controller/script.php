@@ -28,7 +28,7 @@ if (isset($_SESSION['time-message'])) {
   }
 }
 
-$baseURL = "http://$_SERVER[HTTP_HOST]/apps/pdam-kab-kupang/";
+$baseURL = "http://$_SERVER[HTTP_HOST]/pdam-kab-kupang/";
 
 if (!isset($_SESSION['data-user'])) {
   if (isset($_POST['daftar'])) {
@@ -173,6 +173,7 @@ if (isset($_SESSION['data-user'])) {
     if (isset($_POST['check-nilai'])) {
       $_SESSION['kriteria'] = [
         'id' => htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_POST['id-kriteria'])))),
+        'user' => htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_POST['id-user'])))),
         'nama' => htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_POST['nama-kriteria'])))),
       ];
       header("Location: edit-nilai");
@@ -180,9 +181,16 @@ if (isset($_SESSION['data-user'])) {
     }
     if (isset($_SESSION['kriteria'])) {
       $id_kriteria = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_SESSION['kriteria']['id']))));
-      $nilai_kriteria = mysqli_query($conn, "SELECT * FROM nilai_alternatif JOIN alternatif ON nilai_alternatif.id_alternatif=alternatif.id_alternatif JOIN users ON alternatif.id_user=users.id_user WHERE nilai_alternatif.id_kriteria='$id_kriteria' ORDER BY users.username ASC");
+      $id_user = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $_SESSION['kriteria']['user']))));
+      $select_sub_kriteria=mysqli_query($conn, "SELECT * FROM sub_kriteria WHERE id_kriteria='$id_kriteria'");
+      $nilai_kriteria = mysqli_query($conn, "SELECT * FROM nilai_alternatif JOIN alternatif ON nilai_alternatif.id_alternatif=alternatif.id_alternatif JOIN users ON alternatif.id_user=users.id_user WHERE users.id_user='$id_user' AND nilai_alternatif.id_kriteria='$id_kriteria' ORDER BY users.username ASC");
       if (isset($_POST['ubah-nilai'])) {
         if (ubah_nilai($_POST) > 0) {
+          $_SESSION['message-success'] = "Berhasil mengubah nilai " . $_SESSION['kriteria']['nama'] . ".";
+          $_SESSION['time-message'] = time();
+          header("Location: nilai-alternatif");
+          exit();
+        }else{
           $_SESSION['message-success'] = "Berhasil mengubah nilai " . $_SESSION['kriteria']['nama'] . ".";
           $_SESSION['time-message'] = time();
           header("Location: nilai-alternatif");
@@ -214,6 +222,22 @@ if (isset($_SESSION['data-user'])) {
         exit();
       }
     }
+    if (isset($_POST['tambah-sub-kriteria'])) {
+      if (tambah_sub_kriteria($_POST) > 0) {
+        $_SESSION['message-success'] = "Sub kriteria berhasil di tambahkan.";
+        $_SESSION['time-message'] = time();
+        header("Location: " . $_SESSION['page-url']);
+        exit();
+      }
+    }
+    if (isset($_POST['hapus-sub-kriteria'])) {
+      if (hapus_sub_kriteria($_POST) > 0) {
+        $_SESSION['message-success'] = "Sub kriteria berhasil di hapus.";
+        $_SESSION['time-message'] = time();
+        header("Location: " . $_SESSION['page-url']);
+        exit();
+      }
+    }
 
     // if ($_SESSION['data-user']['role'] == 2) {
     // }
@@ -229,7 +253,7 @@ if (isset($_SESSION['data-user'])) {
       }
     }
     if ($_SESSION['data-user']['role'] == 3) {
-      $profile_pegawai = mysqli_query($conn, "SELECT * FROM pegawai WHERE id_user='$idUser' AND jabatan='' OR jabatan='-' OR pangkat='-' OR pangkat='' OR telp='+62' OR telp=''");
+      $profile_pegawai = mysqli_query($conn, "SELECT * FROM pegawai WHERE id_user='$idUser' AND berkas='' OR berkas='-' OR pangkat='-' OR pangkat='' OR telp='+62' OR telp=''");
       $status_pegawai = mysqli_query($conn, "SELECT * FROM pegawai JOIN status_pegawai ON pegawai.id_status=status_pegawai.id_status WHERE pegawai.id_user='$idUser'");
       $profile = mysqli_query($conn, "SELECT * FROM users JOIN pegawai ON users.id_user=pegawai.id_user JOIN status_pegawai ON pegawai.id_status=status_pegawai.id_status WHERE users.id_user='$idUser'");
       if (isset($_POST['ubah-profile'])) {

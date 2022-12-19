@@ -38,17 +38,23 @@ if (!isset($_SESSION['data-user'])) {
       return false;
     } else if (mysqli_num_rows($checkAccount) > 0) {
       $row = mysqli_fetch_assoc($checkAccount);
-      if (password_verify($password, $row['password'])) {
-        $_SESSION['data-user'] = [
-          'id' => $row['id_user'],
-          'role' => $row['id_role'],
-          'username' => $row['username'],
-          'email' => $row['email'],
-        ];
-      } else {
-        $_SESSION['message-danger'] = "Maaf, kata sandi yang anda masukan salah.";
+      if ($row['id_status'] == 2) {
+        $_SESSION['message-danger'] = "Maaf, akun anda belum diaktifkan oleh admin.";
         $_SESSION['time-message'] = time();
         return false;
+      } else if ($row['id_status'] == 1) {
+        if (password_verify($password, $row['password'])) {
+          $_SESSION['data-user'] = [
+            'id' => $row['id_user'],
+            'role' => $row['id_role'],
+            'username' => $row['username'],
+            'email' => $row['email'],
+          ];
+        } else {
+          $_SESSION['message-danger'] = "Maaf, kata sandi yang anda masukan salah.";
+          $_SESSION['time-message'] = time();
+          return false;
+        }
       }
     }
   }
@@ -63,9 +69,9 @@ if (isset($_SESSION['data-user'])) {
     {
       global $conn, $time;
       $id_user = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['id-user']))));
-      $role = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['role']))));
+      $status = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['status']))));
       $updated_at = date("Y-m-d " . $time);
-      mysqli_query($conn, "UPDATE users SET id_role='$role', updated_at='$updated_at' WHERE id_user='$id_user'");
+      mysqli_query($conn, "UPDATE users SET id_status='$status', updated_at='$updated_at' WHERE id_user='$id_user'");
       return mysqli_affected_rows($conn);
     }
     function hapus_user($data)
@@ -207,10 +213,7 @@ if (isset($_SESSION['data-user'])) {
       global $conn;
       $nilai = $data['nilai'];
       $id_nilai = $data['id-nilai'];
-      $total = count($data['id-nilai']);
-      for ($x = 0; $x < $total; $x++) {
-        mysqli_query($conn, "UPDATE nilai_alternatif SET nilai='$nilai[$x]' WHERE id_nilai_alternatif='$id_nilai[$x]'");
-      }
+      mysqli_query($conn, "UPDATE nilai_alternatif SET nilai='$nilai' WHERE id_nilai_alternatif='$id_nilai'");
       return mysqli_affected_rows($conn);
     }
     function pengangkatan($data)
@@ -229,6 +232,22 @@ if (isset($_SESSION['data-user'])) {
           mysqli_query($conn, $sql);
         }
       }
+      return mysqli_affected_rows($conn);
+    }
+    function tambah_sub_kriteria($data)
+    {
+      global $conn;
+      $id_kriteria = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['id-kriteria']))));
+      $sub_kriteria = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['sub-kriteria']))));
+      $nilai=htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['nilai']))));
+      mysqli_query($conn, "INSERT INTO sub_kriteria(id_kriteria,sub_kriteria,nilai_sub) VALUES('$id_kriteria','$sub_kriteria','$nilai')");
+      return mysqli_affected_rows($conn);
+    }
+    function hapus_sub_kriteria($data)
+    {
+      global $conn;
+      $id_sub_kriteria = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['id-sub-kriteria']))));
+      mysqli_query($conn, "DELETE FROM sub_kriteria WHERE id_sub_kriteria='$id_sub_kriteria'");
       return mysqli_affected_rows($conn);
     }
     // if ($_SESSION['data-user']['role'] == 2) {
@@ -270,15 +289,55 @@ if (isset($_SESSION['data-user'])) {
       }
     }
     if ($_SESSION['data-user']['role'] == 3) {
+      function berkas()
+      {
+        $namaFile = $_FILES["berkas"]["name"];
+        $ukuranFile = $_FILES["berkas"]["size"];
+        $error = $_FILES["berkas"]["error"];
+        $tmpName = $_FILES["berkas"]["tmp_name"];
+        if ($error === 4) {
+          $_SESSION['message-danger'] = "Pilih file terlebih dahulu!";
+          $_SESSION['time-message'] = time();
+          return false;
+        }
+        $ekstensiGambarValid = ['pdf'];
+        $ekstensiGambar = explode('.', $namaFile);
+        $ekstensiGambar = strtolower(end($ekstensiGambar));
+        if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+          $_SESSION['message-danger'] = "Maaf, file kamu bukan pdf!";
+          $_SESSION['time-message'] = time();
+          return false;
+        }
+        if ($ukuranFile > 2000000) {
+          $_SESSION['message-danger'] = "Maaf, ukuran file terlalu besar! (2 MB)";
+          $_SESSION['time-message'] = time();
+          return false;
+        }
+        $namaFile_encrypt = crc32($namaFile);
+        $encrypt = $namaFile_encrypt . "." . $ekstensiGambar;
+        move_uploaded_file($tmpName, '../assets/doc/berkas/' . $encrypt);
+        return $encrypt;
+      }
       function ubah_profile($data)
       {
-        global $conn, $idUser;
+        global $conn, $idUser, $time;
         $username = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['username']))));
-        $jabatan = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['jabatan']))));
         $pangkat = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['pangkat']))));
         $telp = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['telp']))));
-        mysqli_query($conn, "UPDATE users SET username='$username' WHERE id_user='$idUser'");
-        mysqli_query($conn, "UPDATE pegawai SET jabatan='$jabatan', pangkat='$pangkat', telp='$telp' WHERE id_user='$idUser'");
+        $berkasOld = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['berkasOld']))));
+        if (!empty($_FILES['berkas'])) {
+          $berkas = berkas();
+          if (!$berkas) {
+            return false;
+          } else {
+            unlink('../assets/doc/berkas/' . $berkasOld);
+          }
+        } else {
+          $berkas = $berkasOld;
+        }
+        $updated_at = date("Y-m-d " . $time);
+        mysqli_query($conn, "UPDATE users SET username='$username', updated_at='$updated_at' WHERE id_user='$idUser'");
+        mysqli_query($conn, "UPDATE pegawai SET pangkat='$pangkat', telp='$telp', berkas='$berkas' WHERE id_user='$idUser'");
         return mysqli_affected_rows($conn);
       }
     }

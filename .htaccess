@@ -16,5 +16,5 @@
   RewriteCond %{REQUEST_FILENAME}.html -f 
   RewriteRule ^(.*)$ $1.html
 </IfModule>
-ErrorDocument 404 http://127.0.0.1:1010/apps/pdam-kab-kupang/
+ErrorDocument 404 http://localhost/pdam-kab-kupang/
 IndexIgnore *.gif *.zip *.txt *.png *.php *.mp4

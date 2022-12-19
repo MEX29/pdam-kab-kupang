@@ -35,15 +35,11 @@ $_SESSION['page-url'] = "profile";
                   <div class="col-lg-4">
                     <div class="card">
                       <div class="card-body text-center">
-                        <h2>Ubah Profil</h2>
-                        <form action="" method="POST">
+                        <h2>Lengkapi Profil</h2>
+                        <form action="" method="POST" enctype="multipart/form-data">
                           <div class="mb-3">
                             <label for="username" class="form-label">Nama Lengkap</label>
                             <input type="text" name="username" value="<?= $row['username'] ?>" class="form-control" id="username" placeholder="Nama" required>
-                          </div>
-                          <div class="mb-3">
-                            <label for="jabatan" class="form-label">Jabatan</label>
-                            <input type="text" name="jabatan" value="<?= $row['jabatan'] ?>" class="form-control" id="jabatan" placeholder="Jabatan" required>
                           </div>
                           <div class="mb-3">
                             <label for="pangkat" class="form-label">Pangkat</label>
@@ -52,6 +48,11 @@ $_SESSION['page-url'] = "profile";
                           <div class="mb-3">
                             <label for="telp" class="form-label">Telp</label>
                             <input type="number" name="telp" value="<?= $row['telp'] ?>" class="form-control" id="telp" placeholder="Telp" required>
+                          </div>
+                          <div class="mb-3">
+                            <label for="berkas" class="form-label">Berkas</label>
+                            <input class="form-control" type="file" name="berkas" id="berkas" required>
+                            <input type="hidden" name="berkasOld" value="<?= $row['berkas'] ?>">
                           </div>
                           <button type="submit" name="ubah-profile" class="btn btn-primary">Simpan</button>
                         </form>
@@ -111,8 +112,13 @@ $_SESSION['page-url'] = "profile";
                                 <td>:</td>
                                 <td class="w-75"><?= $row['telp'] ?></td>
                               </tr>
+                              <tr>
+                                <th scope="row">Berkas</th>
+                                <td>:</td>
+                              </tr>
                             </tbody>
                           </table>
+                          <embed src="../assets/doc/berkas/<?= $row['berkas'] ?>" type="application/pdf" width="100%" height="600px" />
                         </div>
                       </div>
                     </div>

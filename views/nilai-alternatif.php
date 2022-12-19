@@ -46,7 +46,6 @@ $_SESSION['page-url'] = "nilai-alternatif";
                           <?php foreach ($take_user_alternatif as $row_useal) : ?>
                             <th><?= $row_useal['username'] ?></th>
                           <?php endforeach; ?>
-                          <th scope="col" rowspan="2" colspan="1">Aksi</th>
                         </tr>
                         </tr>
                       </thead>
@@ -66,33 +65,17 @@ $_SESSION['page-url'] = "nilai-alternatif";
                                 if (mysqli_num_rows($xw) > 0) {
                                   $xy = mysqli_fetch_assoc($xw); ?>
                                   <td>
-                                    <?php $nilai = $xy['nilai'];
-                                    if ($nilai >= 5 && $nilai < 20) {
-                                      echo "Sangat Kurang baik";
-                                    } else if ($nilai >= 20 && $nilai < 50) {
-                                      echo "Kurang baik";
-                                    } else if ($nilai >= 50 && $nilai < 80) {
-                                      echo "Cukup baik";
-                                    } else if ($nilai >= 80 && $nilai < 100) {
-                                      echo "baik";
-                                    } else if ($nilai == 100) {
-                                      echo "Sangat baik";
-                                    } else if ($nilai == 0) {
-                                      echo "-";
-                                    }
-                                    ?>
+                                    <form action="" method="post">
+                                      <input type="hidden" name="id-kriteria" value="<?= $row['id_kriteria'] ?>">
+                                      <input type="hidden" name="id-user" value="<?= $id_useal ?>">
+                                      <input type="hidden" name="nama-kriteria" value="<?= $row['nama_kriteria'] ?>">
+                                      <button type="submit" name="check-nilai" class="btn btn-link text-decoration-none">
+                                        <?= $xy['nilai']; ?>
+                                      </button>
+                                    </form>
                                   </td>
                               <?php }
                               } ?>
-                              <td>
-                                <form action="" method="post">
-                                  <input type="hidden" name="id-kriteria" value="<?= $row['id_kriteria'] ?>">
-                                  <input type="hidden" name="nama-kriteria" value="<?= $row['nama_kriteria'] ?>">
-                                  <button type="submit" name="check-nilai" class="btn btn-warning btn-sm">
-                                    <i class="mdi mdi-table-edit"></i>
-                                  </button>
-                                </form>
-                              </td>
                             </tr>
                         <?php }
                         } ?>
