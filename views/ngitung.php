@@ -1,7 +1,7 @@
-<?php 
-if(isset($_SESSION['data-user'])){
+<?php
+if (isset($_SESSION['data-user'])) {
   require_once("../controller/db_connect.php");
-}else{
+} else {
   require_once("controller/db_connect.php");
 }
 // Normaslisasi Kriteria
@@ -35,11 +35,12 @@ function get_normal_kriteria($bobot_kriteria)
 }
 
 // Alternatif
-$alternatif_al = mysqli_query($conn, "SELECT alternatif.id_alternatif, users.username FROM alternatif JOIN users ON alternatif.id_user=users.id_user ORDER BY alternatif.id_alternatif");
+$alternatif_al = mysqli_query($conn, "SELECT alternatif.id_alternatif, alternatif.updated_at, users.username FROM alternatif JOIN users ON alternatif.id_user=users.id_user ORDER BY alternatif.id_alternatif");
 $ALTERNATIF = array();
 foreach ($alternatif_al as $row_al) {
   $id_alternatif = $row_al['id_alternatif'];
   $ALTERNATIF[$id_alternatif] = $row_al['username'];
+  $DATES[$id_alternatif] = $row_al['updated_at'];
 }
 function get_hasil_analisa($search = '', $alternatif = array())
 {
@@ -48,7 +49,7 @@ function get_hasil_analisa($search = '', $alternatif = array())
   $rows = mysqli_query($conn, "SELECT alternatif.id_alternatif, kriteria.id_kriteria, nilai_alternatif.nilai FROM alternatif
         	JOIN nilai_alternatif ON nilai_alternatif.id_alternatif=alternatif.id_alternatif
         	JOIN kriteria ON nilai_alternatif.id_kriteria=kriteria.id_kriteria
-        	JOIN users ON alternatif.id_user=users.id_user
+        	JOIN users ON alternatif.id_user=users.id_user 
           WHERE $where
           ORDER BY alternatif.id_alternatif, kriteria.id_kriteria
         ");

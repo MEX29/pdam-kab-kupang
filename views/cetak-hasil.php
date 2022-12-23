@@ -17,6 +17,47 @@ $data = get_hasil_analisa('', $selected);
 $terbobot = get_terbobot($data, $normal_kriteria);
 $total = get_total($terbobot);
 $rank = get_rank($total);
+
+function hari_ini()
+{
+  $hari = date("D");
+
+  switch ($hari) {
+    case 'Sun':
+      $hari_ini = "Minggu";
+      break;
+
+    case 'Mon':
+      $hari_ini = "Senin";
+      break;
+
+    case 'Tue':
+      $hari_ini = "Selasa";
+      break;
+
+    case 'Wed':
+      $hari_ini = "Rabu";
+      break;
+
+    case 'Thu':
+      $hari_ini = "Kamis";
+      break;
+
+    case 'Fri':
+      $hari_ini = "Jumat";
+      break;
+
+    case 'Sat':
+      $hari_ini = "Sabtu";
+      break;
+
+    default:
+      $hari_ini = "Tidak di ketahui";
+      break;
+  }
+  return $hari_ini;
+}
+
 header("Content-type: application/vnd.ms-excel");
 header("Content-Disposition: attachment; filename=Perhitungan Pegawai Tetap PDAM Kab Kupang.xls");
 ?>
@@ -24,6 +65,9 @@ header("Content-Disposition: attachment; filename=Perhitungan Pegawai Tetap PDAM
 <center>
   <h3>Data Perhitungan Pengangkatan Pegawai Tetap PDAM Kab. Kupang</h3>
 </center>
+<div>
+  <p><?= hari_ini().", ".date("d M Y") ?></p>
+</div>
 <table border="1">
   <thead>
     <tr align="center">

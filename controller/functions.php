@@ -213,8 +213,14 @@ if (isset($_SESSION['data-user'])) {
       global $conn;
       $nilai = $data['nilai'];
       $id_nilai = $data['id-nilai'];
-      mysqli_query($conn, "UPDATE nilai_alternatif SET nilai='$nilai' WHERE id_nilai_alternatif='$id_nilai'");
-      return mysqli_affected_rows($conn);
+      if ($nilai > 100) {
+        $_SESSION['message-danger'] = "Maaf, penilaian yang kamu masukan telah melebihi batas maksimum yaitu 100.";
+        $_SESSION['time-message'] = time();
+        return false;
+      } else {
+        mysqli_query($conn, "UPDATE nilai_alternatif SET nilai='$nilai' WHERE id_nilai_alternatif='$id_nilai'");
+        return mysqli_affected_rows($conn);
+      }
     }
     function pengangkatan($data)
     {
@@ -239,7 +245,7 @@ if (isset($_SESSION['data-user'])) {
       global $conn;
       $id_kriteria = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['id-kriteria']))));
       $sub_kriteria = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['sub-kriteria']))));
-      $nilai=htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['nilai']))));
+      $nilai = htmlspecialchars(addslashes(trim(mysqli_real_escape_string($conn, $data['nilai']))));
       mysqli_query($conn, "INSERT INTO sub_kriteria(id_kriteria,sub_kriteria,nilai_sub) VALUES('$id_kriteria','$sub_kriteria','$nilai')");
       return mysqli_affected_rows($conn);
     }

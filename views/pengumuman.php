@@ -45,6 +45,7 @@ $_SESSION['page-url'] = "pengumuman";
                       <tr>
                         <th scope="col" rowspan="2">Rank</th>
                         <th scope="col" rowspan="2">Nama Pegawai</th>
+                        <th scope="col" rowspan="2">Tanggal</th>
                         <th colspan="<?= $count_kriteria ?>">Kriteria</th>
                       <tr>
                         <?php foreach ($xc_kriteria as $row_xc) : ?>
@@ -60,6 +61,8 @@ $_SESSION['page-url'] = "pengumuman";
                         <tr align="center">
                           <td><?= $rank[$key] ?></td>
                           <th><?= $ALTERNATIF[$key] ?></th>
+                          <th><?php $dateCreate = date_create($DATES[$key]);
+                              echo date_format($dateCreate, "l, d M Y"); ?></th>
                           <?php foreach ($terbobot[$key] as $k => $v) : ?>
                             <td><?= round($v, 2) ?></td>
                           <?php endforeach ?>

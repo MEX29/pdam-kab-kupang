@@ -61,7 +61,7 @@ $_SESSION['page-url'] = "nilai-alternatif";
                               <?php foreach ($take_user_alternatif as $row_useal) {
                                 $id_useal = $row_useal['id_user'];
                                 $id_kriteria = $row['id_kriteria'];
-                                $xw = mysqli_query($conn, "SELECT * FROM users JOIN alternatif ON users.id_user=alternatif.id_user JOIN nilai_alternatif ON alternatif.id_alternatif=nilai_alternatif.id_alternatif WHERE users.id_user='$id_useal' AND nilai_alternatif.id_kriteria='$id_kriteria' ORDER BY users.username ASC");
+                                $xw = mysqli_query($conn, "SELECT * FROM users JOIN alternatif ON users.id_user=alternatif.id_user JOIN nilai_alternatif ON alternatif.id_alternatif=nilai_alternatif.id_alternatif JOIN pegawai ON users.id_user=pegawai.id_user WHERE pegawai.id_status='1' AND users.id_user='$id_useal' AND nilai_alternatif.id_kriteria='$id_kriteria' ORDER BY users.username ASC");
                                 if (mysqli_num_rows($xw) > 0) {
                                   $xy = mysqli_fetch_assoc($xw); ?>
                                   <td>

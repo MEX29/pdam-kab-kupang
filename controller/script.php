@@ -28,7 +28,7 @@ if (isset($_SESSION['time-message'])) {
   }
 }
 
-$baseURL = "http://$_SERVER[HTTP_HOST]/pdam-kab-kupang/";
+$baseURL = "http://$_SERVER[HTTP_HOST]/apps/pdam-kab-kupang/";
 
 if (!isset($_SESSION['data-user'])) {
   if (isset($_POST['daftar'])) {
@@ -133,7 +133,7 @@ if (isset($_SESSION['data-user'])) {
     $total_page_role4 = ceil($total_role4 / $data_role4);
     $page_role4 = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
     $awal_data_role4 = ($page_role4 > 1) ? ($page_role4 * $data_role4) - $data_role4 : 0;
-    $alternatif = mysqli_query($conn, "SELECT * FROM alternatif JOIN users ON alternatif.id_user=users.id_user ORDER BY users.username ASC LIMIT $awal_data_role4, $data_role4");
+    $alternatif = mysqli_query($conn, "SELECT * FROM alternatif JOIN users ON alternatif.id_user=users.id_user JOIN pegawai ON users.id_user=pegawai.id_user WHERE pegawai.id_status='1' ORDER BY users.username ASC LIMIT $awal_data_role4, $data_role4");
     $select_users = mysqli_query($conn, "SELECT * FROM users WHERE id_role='3'");
     if (isset($_POST['add-alternatif'])) {
       if (add_alternatif($_POST) > 0) {
@@ -160,7 +160,7 @@ if (isset($_SESSION['data-user'])) {
       }
     }
 
-    $nilai_alternatif = mysqli_query($conn, "SELECT DISTINCT kriteria.id_kriteria, kriteria.nama_kriteria FROM nilai_alternatif JOIN alternatif ON nilai_alternatif.id_alternatif=alternatif.id_alternatif JOIN kriteria ON nilai_alternatif.id_kriteria=kriteria.id_kriteria JOIN users ON alternatif.id_user=users.id_user ORDER BY kriteria.id_kriteria ASC");
+    $nilai_alternatif = mysqli_query($conn, "SELECT DISTINCT kriteria.id_kriteria, kriteria.nama_kriteria FROM nilai_alternatif JOIN alternatif ON nilai_alternatif.id_alternatif=alternatif.id_alternatif JOIN kriteria ON nilai_alternatif.id_kriteria=kriteria.id_kriteria JOIN users ON alternatif.id_user=users.id_user JOIN pegawai ON users.id_user=pegawai.id_user WHERE pegawai.id_status='1' ORDER BY kriteria.id_kriteria ASC");
     $count_alternatif = mysqli_query($conn, "SELECT * FROM alternatif");
     $count_alternatif = mysqli_num_rows($count_alternatif);
     $take_user_alternatif = mysqli_query($conn, "SELECT 
@@ -168,6 +168,8 @@ if (isset($_SESSION['data-user'])) {
       FROM alternatif 
       JOIN users ON alternatif.id_user=users.id_user 
       JOIN nilai_alternatif ON alternatif.id_alternatif=nilai_alternatif.id_alternatif 
+      JOIN pegawai ON users.id_user=pegawai.id_user
+      WHERE pegawai.id_status='1'
       ORDER BY users.username ASC
     ");
     if (isset($_POST['check-nilai'])) {
@@ -199,7 +201,7 @@ if (isset($_SESSION['data-user'])) {
       }
     }
 
-    $check_alternatif = mysqli_query($conn, "SELECT * FROM alternatif JOIN users ON alternatif.id_user=users.id_user ORDER BY users.username ASC");
+    $check_alternatif = mysqli_query($conn, "SELECT * FROM alternatif JOIN users ON alternatif.id_user=users.id_user JOIN pegawai ON users.id_user=pegawai.id_user WHERE pegawai.id_status='1' ORDER BY users.username ASC");
     if (isset($_POST['perhitungan'])) {
       $selected = (array) $_POST['id-alternatif'];
       $success = false;

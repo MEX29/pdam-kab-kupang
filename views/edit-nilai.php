@@ -43,15 +43,16 @@ $_SESSION['page-url'] = "edit-nilai";
                       <?php foreach ($select_sub_kriteria as $row_ssk) : ?>
                         <div class="row mb-3">
                           <div class="col-lg-2 m-auto"><?= $row_ssk['sub_kriteria'] ?></div>
-                          <div class="col-lg-10">
-                            <input type="number" name="angka[]" value="<?= $row['nilai'] ?>" class="form-control" id="nilai" placeholder="Nilai" required>
+                          <div class="col-lg-1">
+                            <input type="number" name="angka[]" value="<?= $row['nilai'] ?>" class="form-control p-2" id="nilai" placeholder="Nilai" required>
                           </div>
+                          <div class="col-lg-9"></div>
                         </div>
-                        <?php endforeach; ?>
+                      <?php endforeach; ?>
                       <div class="row">
                         <div class="col-lg-2"></div>
-                        <div class="col-lg-9">
-                          <input type="number" name="nilai" id="hasil" class="form-control" readonly required>
+                        <div class="col-lg-1">
+                          <input type="number" name="nilai" id="hasil" class="form-control p-1" readonly required>
                         </div>
                         <div class="col-lg-1">
                           <button type="button" id="hitung" class="btn btn-primary btn-sm rounded-0" style="margin-left: -10px;">Hitung</button>
@@ -76,6 +77,14 @@ $_SESSION['page-url'] = "edit-nilai";
                               // tambahkan nilai dari elemen input tersebut ke variabel total
                               total += parseInt(angkaInput.value);
                             });
+
+                            if (total > 100) {
+                              Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: "Jumlah nilai tidak boleh melebihi batas maksimum yaitu 100.",
+                              })
+                            }
 
                             // tampilkan total nilai pada elemen input dengan nama "nilai"
                             nilaiInput.value = total;
