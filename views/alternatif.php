@@ -61,31 +61,31 @@ $_SESSION['page-url'] = "alternatif";
                     <table class="table select-table text-center">
                       <thead>
                         <tr>
-                          <th>Kode Alternatif</th>
-                          <th>Nama Alternatif</th>
-                          <th>Tgl Dibuat</th>
-                          <th>Tgl Diubah</th>
-                          <th colspan="2">Aksi</th>
+                          <th class="text-dark">Kode Alternatif</th>
+                          <th class="text-dark">Nama Alternatif</th>
+                          <th class="text-dark">Tgl Dibuat</th>
+                          <th class="text-dark">Tgl Diubah</th>
+                          <th class="text-dark" colspan="2">Aksi</th>
                         </tr>
                       </thead>
                       <tbody id="search-page">
                         <?php if (mysqli_num_rows($alternatif) == 0) { ?>
                           <tr>
-                            <td colspan="6">Belum ada data alternatif</td>
+                            <td class="text-dark" colspan="6">Belum ada data alternatif</td>
                           </tr>
                           <?php } else if (mysqli_num_rows($alternatif) > 0) {
                           while ($row = mysqli_fetch_assoc($alternatif)) { ?>
                             <tr>
-                              <td><?= $row['kode_alternatif'] ?></td>
-                              <td><?= $row['username'] ?></td>
+                              <td class="text-dark"><?= $row['kode_alternatif'] ?></td>
+                              <td class="text-dark"><?= $row['username'] ?></td>
                               <td>
-                                <div class="badge badge-opacity-success">
+                                <div class="badge badge-opacity-success text-dark">
                                   <?php $dateCreate = date_create($row['created_at']);
                                   echo date_format($dateCreate, "l, d M Y h:i a"); ?>
                                 </div>
                               </td>
                               <td>
-                                <div class="badge badge-opacity-warning">
+                                <div class="badge badge-opacity-warning text-dark">
                                   <?php $dateUpdate = date_create($row['updated_at']);
                                   echo date_format($dateUpdate, "l, d M Y h:i a"); ?>
                                 </div>

@@ -41,12 +41,12 @@ $_SESSION['page-url'] = "users";
                       <table class="table select-table text-center">
                         <thead>
                           <tr>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>Tgl Dibuat</th>
-                            <th>Tgl Diubah</th>
-                            <th colspan="2">Aksi</th>
+                            <th class="text-dark">Nama</th>
+                            <th class="text-dark">Email</th>
+                            <th class="text-dark">Status</th>
+                            <th class="text-dark">Tgl Dibuat</th>
+                            <th class="text-dark">Tgl Diubah</th>
+                            <th class="text-dark" colspan="2">Aksi</th>
                           </tr>
                         </thead>
                         <tbody id="search-page">
@@ -57,7 +57,7 @@ $_SESSION['page-url'] = "users";
                             <?php } else if (mysqli_num_rows($users) > 0) {
                             while ($row = mysqli_fetch_assoc($users)) { ?>
                               <tr>
-                                <td>
+                                <td class="text-dark">
                                   <div class="d-flex">
                                     <img src="../assets/images/user.png" alt="">
                                     <div class="my-auto">
@@ -66,26 +66,26 @@ $_SESSION['page-url'] = "users";
                                     </div>
                                   </div>
                                 </td>
-                                <td><?= $row['email'] ?></td>
-                                <td><?php if ($row['id_status'] == 1) {
+                                <td class="text-dark"><?= $row['email'] ?></td>
+                                <td class="text-dark"><?php if ($row['id_status'] == 1) {
                                       echo "Akun Aktif";
                                     } else {
                                       echo "Akun Tidak Aktif";
                                     } ?></td>
                                 <td>
-                                  <div class="badge badge-opacity-success">
+                                  <div class="badge badge-opacity-success text-dark">
                                     <?php $dateCreate = date_create($row['created_at']);
                                     echo date_format($dateCreate, "l, d M Y h:i a"); ?>
                                   </div>
                                 </td>
                                 <td>
-                                  <div class="badge badge-opacity-warning">
+                                  <div class="badge badge-opacity-warning text-dark">
                                     <?php $dateUpdate = date_create($row['updated_at']);
                                     echo date_format($dateUpdate, "l, d M Y h:i a"); ?>
                                   </div>
                                 </td>
                                 <td>
-                                  <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#ubah<?= $row['id_user'] ?>">
+                                  <button type="button" class="btn btn-warning btn-sm text-white border-0" data-bs-toggle="modal" data-bs-target="#ubah<?= $row['id_user'] ?>">
                                     <i class="mdi mdi-table-edit"></i>
                                   </button>
                                   <div class="modal fade" id="ubah<?= $row['id_user'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -118,7 +118,7 @@ $_SESSION['page-url'] = "users";
                                   </div>
                                 </td>
                                 <td>
-                                  <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapus<?= $row['id_user'] ?>">
+                                  <button type="button" class="btn btn-danger btn-sm text-white border-0" data-bs-toggle="modal" data-bs-target="#hapus<?= $row['id_user'] ?>">
                                     <i class="mdi mdi-delete"></i>
                                   </button>
                                   <div class="modal fade" id="hapus<?= $row['id_user'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

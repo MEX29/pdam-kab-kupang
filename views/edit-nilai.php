@@ -11,7 +11,10 @@ $_SESSION['page-url'] = "edit-nilai";
 <!DOCTYPE html>
 <html lang="en">
 
-<head><?php require_once("../resources/dash-header.php") ?></head>
+<head>
+  <?php require_once("../resources/dash-header.php") ?>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
 
 <body>
   <?php if (isset($_SESSION['message-success'])) { ?>
@@ -35,20 +38,46 @@ $_SESSION['page-url'] = "edit-nilai";
           <div class="row">
             <div class="col-md-12">
               <h2 class="mb-3">Nilai <?= $_SESSION['kriteria']['nama'] ?></h2>
-              <form action="" method="post">
+              <form action="" method="post" id="form">
                 <?php if (mysqli_num_rows($nilai_kriteria) > 0) {
                   while ($row = mysqli_fetch_assoc($nilai_kriteria)) { ?>
                     <div class="mb-3">
                       <label for="nilai" class="form-label"><strong><?= $row['username'] ?></strong></label>
-                      <?php foreach ($select_sub_kriteria as $row_ssk) : ?>
+                      <?php $no = 1;
+                      foreach ($select_sub_kriteria as $row_ssk) : ?>
                         <div class="row mb-3">
                           <div class="col-lg-2 m-auto"><?= $row_ssk['sub_kriteria'] ?></div>
                           <div class="col-lg-1">
-                            <input type="number" name="angka[]" value="<?= $row['nilai'] ?>" class="form-control p-2" id="nilai" placeholder="Nilai" required>
+                            <input type="number" name="angka[]" value="<?= $row['nilai'] ?>" class="form-control p-2" id="nilai<?= $no; ?>" placeholder="Nilai" max="<?= $row_ssk['nilai_sub'] ?>" required>
+                            <div id="error<?= $no; ?>"></div>
+                            <script>
+                              $(document).ready(function() {
+                                $("#nilai<?= $no; ?>").on("input", function() {
+                                  if ($(this).val().length > 2) {
+                                    $(this).val($(this).val().slice(0, 2));
+                                    Swal.fire({
+                                      icon: 'error',
+                                      title: 'Gagal',
+                                      text: "Nilai tidak boleh lebih dari 2 digit.",
+                                    })
+                                  }else if($(this).val() > <?= $row_ssk['nilai_sub'] ?>) {
+                                    $(this).val($(this).val().slice(0, 2));
+                                    Swal.fire({
+                                      icon: 'error',
+                                      title: 'Gagal',
+                                      text: "Nilai tidak boleh lebih dari <?= $row_ssk['nilai_sub'] ?>.",
+                                    })
+                                  } else {
+                                    $("#error<?= $no; ?>").text("");
+                                  }
+                                });
+                              });
+                            </script>
                           </div>
                           <div class="col-lg-9"></div>
                         </div>
-                      <?php endforeach; ?>
+                      <?php $no++;
+                      endforeach; ?>
                       <div class="row">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-1">

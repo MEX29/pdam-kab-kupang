@@ -40,11 +40,11 @@ $_SESSION['page-url'] = "nilai-alternatif";
                     <table class="table select-table text-center">
                       <thead>
                         <tr>
-                          <th scope="col" rowspan="2">Kriteria</th>
-                          <th colspan="<?= $count_alternatif ?>">Alternatif</th>
+                          <th class="text-dark" scope="col" rowspan="2">Kriteria</th>
+                          <th class="text-dark" colspan="<?= $count_alternatif ?>">Alternatif</th>
                         <tr>
                           <?php foreach ($take_user_alternatif as $row_useal) : ?>
-                            <th><?= $row_useal['username'] ?></th>
+                            <th class="text-dark"><?= $row_useal['username'] ?></th>
                           <?php endforeach; ?>
                         </tr>
                         </tr>
@@ -52,12 +52,12 @@ $_SESSION['page-url'] = "nilai-alternatif";
                       <tbody id="search-page">
                         <?php if (mysqli_num_rows($nilai_alternatif) == 0) { ?>
                           <tr>
-                            <td colspan="100">Belum ada data nilai alternatif</td>
+                            <td class="text-dark" colspan="100">Belum ada data nilai alternatif</td>
                           </tr>
                           <?php } else if (mysqli_num_rows($nilai_alternatif) > 0) {
                           while ($row = mysqli_fetch_assoc($nilai_alternatif)) { ?>
                             <tr>
-                              <td><?= $row['nama_kriteria']; ?></td>
+                              <td class="text-dark"><?= $row['nama_kriteria']; ?></td>
                               <?php foreach ($take_user_alternatif as $row_useal) {
                                 $id_useal = $row_useal['id_user'];
                                 $id_kriteria = $row['id_kriteria'];

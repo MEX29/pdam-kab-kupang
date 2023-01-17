@@ -40,9 +40,9 @@ $_SESSION['page-url'] = "sub-kriteria";
                     <table class="table select-table text-center">
                       <thead>
                         <tr>
-                          <th>#</th>
-                          <th>Nama Kriteria</th>
-                          <th>Sub kriteria</th>
+                          <th class="text-dark">#</th>
+                          <th class="text-dark">Nama Kriteria</th>
+                          <th class="text-dark">Sub kriteria</th>
                         </tr>
                       </thead>
                       <tbody id="search-page">
@@ -54,27 +54,27 @@ $_SESSION['page-url'] = "sub-kriteria";
                           <?php } else if (mysqli_num_rows($kriteria) > 0) {
                           while ($row = mysqli_fetch_assoc($kriteria)) { ?>
                             <tr>
-                              <td><?= $no; ?></td>
-                              <td><?= $row['nama_kriteria'] ?></td>
+                              <td class="text-dark"><?= $no; ?></td>
+                              <td class="text-dark"><?= $row['nama_kriteria'] ?></td>
                               <td>
-                                <button type="button" class="btn btn-link btn-sm p-0 m-0" data-bs-toggle="modal" data-bs-target="#kriteria<?= $row['id_kriteria'] ?>">
+                                <button type="button" class="btn btn-link btn-sm p-0 m-0 text-decoration-none" data-bs-toggle="modal" data-bs-target="#kriteria<?= $row['id_kriteria'] ?>">
                                   Tambah
                                 </button>
                                 <div class="modal fade" id="kriteria<?= $row['id_kriteria'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
                                       <div class="modal-header border-bottom-0">
-                                        <h5 class="modal-title" id="exampleModalLabel">Tambah Sub Kriteria <?= $row['nama_kriteria'] ?></h5>
+                                        <h5 class="modal-title text-dark" id="exampleModalLabel">Tambah Sub Kriteria <?= $row['nama_kriteria'] ?></h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                       </div>
                                       <form action="" method="post">
                                         <div class="modal-body">
                                           <div class="mb-3">
-                                            <label for="sub-kriteria" class="form-label">Sub Kriteria</label>
+                                            <label for="sub-kriteria" class="form-label text-dark">Sub Kriteria</label>
                                             <input type="text" name="sub-kriteria" class="form-control" id="sub-kriteria" placeholder="Sub Kriteria">
                                           </div>
                                           <div class="mb-3">
-                                            <label for="nilai" class="form-label">Nilai</label>
+                                            <label for="nilai" class="form-label text-dark">Nilai</label>
                                             <input type="text" name="nilai" class="form-control" id="nilai" placeholder="Nilai">
                                           </div>
                                         </div>
@@ -92,7 +92,7 @@ $_SESSION['page-url'] = "sub-kriteria";
                                 if (mysqli_num_rows($sub_kriteria) > 0) {
                                   while ($row_sk = mysqli_fetch_assoc($sub_kriteria)) { ?>
                                     <div class="d-flex flex-nowrap justify-content-center mt-1">
-                                      <p>
+                                      <p class="text-dark">
                                         <?= $row_sk['sub_kriteria'] . " (" . $row_sk['nilai_sub'] . ")" ?>
                                       </p>
                                       <form action="" method="post">

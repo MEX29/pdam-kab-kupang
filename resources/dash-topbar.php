@@ -21,8 +21,8 @@
   <div class="navbar-menu-wrapper d-flex align-items-top">
     <ul class="navbar-nav">
       <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-        <h1 class="welcome-text">Selamat datang, <span class="text-black fw-bold"><?= $_SESSION['data-user']['username'] ?></span></h1>
-        <p class="">
+        <h1 class="welcome-text text-dark">Selamat datang, <span class="text-black fw-bold"><?= $_SESSION['data-user']['username'] ?></span></h1>
+        <p class="text-dark">
           <i class="mdi mdi-subdirectory-arrow-right"></i>
           <a href="./" class="text-decoration-none text-dark">Dashboard</a>
           <?php if ($_SESSION['page-name'] != "Dashboard") {

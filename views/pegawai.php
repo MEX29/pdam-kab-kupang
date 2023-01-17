@@ -41,14 +41,15 @@ $_SESSION['page-url'] = "pegawai";
                       <table class="table select-table text-center">
                         <thead>
                           <tr>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Pangkat</th>
-                            <th>Telp</th>
-                            <th>Tgl Dibuat</th>
-                            <th>Tgl Diubah</th>
+                            <th class="text-dark">Nama</th>
+                            <th class="text-dark">Email</th>
+                            <th class="text-dark">Pangkat</th>
+                            <th class="text-dark">Telp</th>
+                            <th class="text-dark">Berkas</th>
+                            <th class="text-dark">Tgl Masuk</th>
+                            <th class="text-dark">Tgl Pengangkatan</th>
                             <?php if ($_SESSION['data-user']['role'] == 1) { ?>
-                              <th colspan="2">Aksi</th>
+                              <th class="text-dark" colspan="2">Aksi</th>
                             <?php } ?>
                           </tr>
                         </thead>
@@ -60,7 +61,7 @@ $_SESSION['page-url'] = "pegawai";
                             <?php } else if (mysqli_num_rows($pegawai) > 0) {
                             while ($row = mysqli_fetch_assoc($pegawai)) { ?>
                               <tr>
-                                <td>
+                                <td class="text-dark">
                                   <div class="d-flex">
                                     <img src="../assets/images/user.png" alt="">
                                     <div class="my-auto">
@@ -69,9 +70,31 @@ $_SESSION['page-url'] = "pegawai";
                                     </div>
                                   </div>
                                 </td>
-                                <td><?= $row['email'] ?></td>
-                                <td><?= $row['pangkat'] ?></td>
-                                <td><?= $row['telp'] ?></td>
+                                <td class="text-dark"><?= $row['email'] ?></td>
+                                <td class="text-dark"><?= $row['pangkat'] ?></td>
+                                <td class="text-dark"><?= $row['telp'] ?></td>
+                                <td>
+                                  <button type="button" class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#berkas<?= $row['id_pegawai'] ?>">
+                                    Lihat Berkas
+                                  </button>
+                                  <div class="modal fade" id="berkas<?= $row['id_pegawai'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title text-dark" id="exampleModalLabel"><?= $row['username'] ?></h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <?php if (!empty($row['berkas'])) { ?>
+                                            <embed src="../assets/doc/berkas/<?= $row['berkas'] ?>" type="application/pdf" width="100%" height="600px" />
+                                          <?php } else if (empty($row['berkas'])) { ?>
+                                            <p class="text-dark">Belum di upload</p>
+                                          <?php } ?>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
                                 <td>
                                   <div class="badge badge-opacity-success">
                                     <?php $dateCreate = date_create($row['created_at']);
@@ -94,7 +117,7 @@ $_SESSION['page-url'] = "pegawai";
                                 </td>
                                 <?php if ($_SESSION['data-user']['role'] == 1) { ?>
                                   <td>
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#hapus<?= $row['id_user'] ?>">
+                                    <button type="button" class="btn btn-danger text-white btn-sm border-0" data-bs-toggle="modal" data-bs-target="#hapus<?= $row['id_user'] ?>">
                                       <i class="mdi mdi-delete"></i>
                                     </button>
                                     <div class="modal fade" id="hapus<?= $row['id_user'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
