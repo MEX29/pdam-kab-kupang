@@ -2,7 +2,7 @@
 if (!isset($_SESSION[''])) {
   session_start();
 }
-$baseURL = "http://$_SERVER[HTTP_HOST]/apps/pdam-kab-kupang/";
+$baseURL = "https://$_SERVER[HTTP_HOST]/";
 require_once("../controller/db_connect.php");
 $check_alternatif = mysqli_query($conn, "SELECT * FROM alternatif JOIN users ON alternatif.id_user=users.id_user ORDER BY users.username ASC");
 foreach ($check_alternatif as $row_cekal) {

@@ -1,0 +1,6 @@
+[09-Jan-2023 03:59:21 UTC] PHP Warning:  mysqli_connect(): (08004/1040): Too many connections in /home/jhdbfgel/public_html/pdam-kab-kupang.tugasakhir.my.id/controller/db_connect.php on line 2
+[09-Jan-2023 10:59:21 Asia/Jakarta] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, bool given in /home/jhdbfgel/public_html/pdam-kab-kupang.tugasakhir.my.id/controller/functions.php on line 30
+[09-Jan-2023 10:59:21 Asia/Jakarta] PHP Warning:  mysqli_real_escape_string() expects parameter 1 to be mysqli, bool given in /home/jhdbfgel/public_html/pdam-kab-kupang.tugasakhir.my.id/controller/functions.php on line 31
+[09-Jan-2023 10:59:21 Asia/Jakarta] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, bool given in /home/jhdbfgel/public_html/pdam-kab-kupang.tugasakhir.my.id/controller/functions.php on line 34
+[09-Jan-2023 10:59:21 Asia/Jakarta] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, null given in /home/jhdbfgel/public_html/pdam-kab-kupang.tugasakhir.my.id/controller/functions.php on line 35
+[09-Jan-2023 04:00:07 UTC] PHP Warning:  mysqli_connect(): (08004/1040): Too many connections in /home/jhdbfgel/public_html/pdam-kab-kupang.tugasakhir.my.id/controller/db_connect.php on line 2

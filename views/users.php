@@ -44,8 +44,8 @@ $_SESSION['page-url'] = "users";
                             <th class="text-dark">Nama</th>
                             <th class="text-dark">Email</th>
                             <th class="text-dark">Status</th>
-                            <th class="text-dark">Tgl Dibuat</th>
-                            <th class="text-dark">Tgl Diubah</th>
+                            <th class="text-dark">Tgl Masuk</th>
+                            <th class="text-dark">Tgl Pengangkatan</th>
                             <th class="text-dark" colspan="2">Aksi</th>
                           </tr>
                         </thead>
@@ -80,8 +80,8 @@ $_SESSION['page-url'] = "users";
                                 </td>
                                 <td>
                                   <div class="badge badge-opacity-warning text-dark">
-                                    <?php $dateUpdate = date_create($row['updated_at']);
-                                    echo date_format($dateUpdate, "l, d M Y h:i a"); ?>
+                                    <?php if(!empty($row['updated_at'])){$dateUpdate = date_create($row['updated_at']);
+                                    echo date_format($dateUpdate, "l, d M Y h:i a");}else{echo "-";} ?>
                                   </div>
                                 </td>
                                 <td>

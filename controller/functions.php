@@ -212,11 +212,18 @@ if (isset($_SESSION['data-user'])) {
     {
       global $conn;
       $nilai = $data['nilai'];
+      if (empty($nilai)) {
+        $_SESSION['message-danger'] = "Maaf, kamu belum menghitung total penilaian.";
+        $_SESSION['time-message'] = time();
+        header("Location: edit-nilai");
+        exit;
+      }
       $id_nilai = $data['id-nilai'];
       if ($nilai > 100) {
         $_SESSION['message-danger'] = "Maaf, penilaian yang kamu masukan telah melebihi batas maksimum yaitu 100.";
         $_SESSION['time-message'] = time();
-        return false;
+        header("Location: edit-nilai");
+        exit;
       } else {
         mysqli_query($conn, "UPDATE nilai_alternatif SET nilai='$nilai' WHERE id_nilai_alternatif='$id_nilai'");
         return mysqli_affected_rows($conn);

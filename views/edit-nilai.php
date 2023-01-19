@@ -48,7 +48,7 @@ $_SESSION['page-url'] = "edit-nilai";
                         <div class="row mb-3">
                           <div class="col-lg-2 m-auto"><?= $row_ssk['sub_kriteria'] ?></div>
                           <div class="col-lg-1">
-                            <input type="number" name="angka[]" value="<?= $row['nilai'] ?>" class="form-control p-2" id="nilai<?= $no; ?>" placeholder="Nilai" max="<?= $row_ssk['nilai_sub'] ?>" required>
+                            <input type="number" name="angka[]" value="<?= $row['nilai'] ?>" class="form-control p-2" id="nilai<?= $no; ?>" placeholder="Nilai" max="<?= $row_ssk['nilai_sub'] ?>" min="0" required>
                             <div id="error<?= $no; ?>"></div>
                             <script>
                               $(document).ready(function() {
@@ -60,12 +60,19 @@ $_SESSION['page-url'] = "edit-nilai";
                                       title: 'Gagal',
                                       text: "Nilai tidak boleh lebih dari 2 digit.",
                                     })
-                                  }else if($(this).val() > <?= $row_ssk['nilai_sub'] ?>) {
+                                  } else if ($(this).val() > <?= $row_ssk['nilai_sub'] ?>) {
                                     $(this).val($(this).val().slice(0, 2));
                                     Swal.fire({
                                       icon: 'error',
                                       title: 'Gagal',
                                       text: "Nilai tidak boleh lebih dari <?= $row_ssk['nilai_sub'] ?>.",
+                                    })
+                                  } else if ($(this).val() < 0) {
+                                    $(this).val($(this).val().slice(0, 2));
+                                    Swal.fire({
+                                      icon: 'error',
+                                      title: 'Gagal',
+                                      text: "Nilai tidak boleh minus.",
                                     })
                                   } else {
                                     $("#error<?= $no; ?>").text("");
@@ -113,10 +120,13 @@ $_SESSION['page-url'] = "edit-nilai";
                                 title: 'Gagal',
                                 text: "Jumlah nilai tidak boleh melebihi batas maksimum yaitu 100.",
                               })
-                            }
 
-                            // tampilkan total nilai pada elemen input dengan nama "nilai"
-                            nilaiInput.value = total;
+                            } else {
+
+                              // tampilkan total nilai pada elemen input dengan nama "nilai"
+                              nilaiInput.value = total;
+
+                            }
                           });
                         </script>
 

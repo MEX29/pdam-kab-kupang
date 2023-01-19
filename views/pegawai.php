@@ -103,8 +103,12 @@ $_SESSION['page-url'] = "pegawai";
                                 </td>
                                 <td>
                                   <div class="badge badge-opacity-warning">
-                                    <?php $dateUpdate = date_create($row['updated_at']);
-                                    echo date_format($dateUpdate, "l, d M Y h:i a"); ?>
+                                    <?php if (!empty($row['updated_at'])) {
+                                      $dateUpdate = date_create($row['updated_at']);
+                                      echo date_format($dateUpdate, "l, d M Y h:i a");
+                                    } else {
+                                      echo "-";
+                                    } ?>
                                   </div>
                                 </td>
                                 <td>

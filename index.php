@@ -1,5 +1,3 @@
-<?php require_once("controller/script.php"); ?>
-
 <!DOCTYPE html>
 <html lang="en" style="font-family: 'Montserrat', sans-serif;">
 
